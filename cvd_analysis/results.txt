@@ -1,0 +1,81 @@
+Loading data from f:/venv/cvd_analysis/cardio_train.csv...
+Initial shape: (70000, 13)
+Removing 24 duplicate rows...
+Rows after blood pressure cleaning: 68651 (removed 1325)
+Final shape after preprocessing: (68613, 13)
+
+--- Analysis: Effect of Smoking on CVD ---
+
+CVD Prevalence:
+Non-Smokers (0): 49.73%
+Smokers (1):     46.84%
+
+Unadjusted Odds Ratio (Smoker vs Non-Smoker):
+OR: 0.8907
+Interpretation: Smokers have lower/equal odds of CVD compared to non-smokers (unexpected, likely due to age confounding).
+
+--- Model Training & Evaluation ---
+
+Training Logistic Regression...
+Logistic Regression Accuracy: 0.7297
+              precision    recall  f1-score   support
+
+           0       0.71      0.78      0.75      6969
+           1       0.75      0.68      0.71      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+Logistic Regression Coefficients (Feature Importance):
+        Feature  Coefficient
+4         ap_hi     0.943482
+0     age_years     0.338224
+6   cholesterol     0.337799
+3        weight     0.160350
+5         ap_lo     0.099825
+1        gender    -0.004795
+2        height    -0.032796
+8         smoke    -0.040029
+9          alco    -0.051498
+7          gluc    -0.067612
+10       active    -0.091459
+
+Logistic Regression Coefficient for 'smoke': -0.0400
+Adjusted Odds Ratio for 'smoke': 0.9608
+
+Training K-Nearest Neighbors...
+K-Nearest Neighbors Accuracy: 0.6959
+              precision    recall  f1-score   support
+
+           0       0.70      0.71      0.70      6969
+           1       0.69      0.69      0.69      6754
+
+    accuracy                           0.70     13723
+   macro avg       0.70      0.70      0.70     13723
+weighted avg       0.70      0.70      0.70     13723
+
+
+Training SVM...
+SVM Accuracy: 0.7297
+              precision    recall  f1-score   support
+
+           0       0.71      0.79      0.75      6969
+           1       0.75      0.67      0.71      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Training Random Forest...
+Random Forest Accuracy: 0.7098
+              precision    recall  f1-score   support
+
+           0       0.71      0.72      0.72      6969
+           1       0.71      0.70      0.70      6754
+
+    accuracy                           0.71     13723
+   macro avg       0.71      0.71      0.71     13723
+weighted avg       0.71      0.71      0.71     13723
+

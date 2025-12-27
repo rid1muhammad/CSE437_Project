@@ -1,0 +1,159 @@
+Loading data from f:/venv/cvd_analysis/cardio_train.csv...
+Initial shape: (70000, 13)
+Dropped original 'age' column (using 'age_years' instead).
+Removing 674 duplicate rows...
+Rows after blood pressure cleaning: 68001 (removed 1325)
+Rows after height/weight cleaning: 67844
+Added 'bmi' feature.
+Added 'pulse_pressure' feature.
+Added 'map' (Mean Arterial Pressure) feature.
+Final shape after preprocessing: (67844, 15)
+
+--- Analysis: Effect of Smoking on CVD ---
+
+CVD Prevalence:
+Non-Smokers (0): 50.01%
+Smokers (1):     46.87%
+
+Unadjusted Odds Ratio (Smoker vs Non-Smoker):
+OR: 0.8818
+Interpretation: Smokers have lower/equal odds of CVD compared to non-smokers (unexpected, likely due to age confounding).
+
+--- Model Training & Evaluation with Autoencoder Embeddings ---
+Using 14 features: ['age_years', 'gender', 'height', 'weight', 'ap_hi', 'ap_lo', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'bmi', 'pulse_pressure', 'map']
+
+Training Autoencoder for Feature Extraction...
+Using device: cuda
+Epoch 1/20, Loss: 0.6519
+Epoch 2/20, Loss: 0.2500
+Epoch 3/20, Loss: 0.1714
+Epoch 4/20, Loss: 0.1137
+Epoch 5/20, Loss: 0.0815
+Epoch 6/20, Loss: 0.0745
+Epoch 7/20, Loss: 0.0553
+Epoch 8/20, Loss: 0.0500
+Epoch 9/20, Loss: 0.0483
+Epoch 10/20, Loss: 0.0475
+Epoch 11/20, Loss: 0.0469
+Epoch 12/20, Loss: 0.0463
+Epoch 13/20, Loss: 0.0458
+Epoch 14/20, Loss: 0.0457
+Epoch 15/20, Loss: 0.0455
+Epoch 16/20, Loss: 0.0453
+Epoch 17/20, Loss: 0.0456
+Epoch 18/20, Loss: 0.0453
+Epoch 19/20, Loss: 0.0450
+Epoch 20/20, Loss: 0.0448
+Autoencoder training complete.
+
+Extracting embeddings...
+Original feature shape: (67844, 14)
+Encoded embedding shape: (67844, 10)
+
+Training Logistic Regression (on Embeddings)...
+Logistic Regression Accuracy: 0.7222
+              precision    recall  f1-score   support
+
+           0       0.70      0.78      0.74      6763
+           1       0.75      0.66      0.71      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.73      0.72      0.72     13569
+weighted avg       0.73      0.72      0.72     13569
+
+
+Training K-Nearest Neighbors (on Embeddings)...
+K-Nearest Neighbors Accuracy: 0.6958
+              precision    recall  f1-score   support
+
+           0       0.69      0.71      0.70      6763
+           1       0.70      0.68      0.69      6806
+
+    accuracy                           0.70     13569
+   macro avg       0.70      0.70      0.70     13569
+weighted avg       0.70      0.70      0.70     13569
+
+
+Training SVM (on Embeddings)...
+SVM Accuracy: 0.7215
+              precision    recall  f1-score   support
+
+           0       0.69      0.79      0.74      6763
+           1       0.76      0.65      0.70      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.73      0.72      0.72     13569
+weighted avg       0.73      0.72      0.72     13569
+
+
+Training Decision Tree (on Embeddings)...
+Decision Tree Accuracy: 0.7015
+              precision    recall  f1-score   support
+
+           0       0.71      0.68      0.69      6763
+           1       0.69      0.73      0.71      6806
+
+    accuracy                           0.70     13569
+   macro avg       0.70      0.70      0.70     13569
+weighted avg       0.70      0.70      0.70     13569
+
+
+Training Naive Bayes (on Embeddings)...
+Naive Bayes Accuracy: 0.6053
+              precision    recall  f1-score   support
+
+           0       0.59      0.70      0.64      6763
+           1       0.63      0.51      0.56      6806
+
+    accuracy                           0.61     13569
+   macro avg       0.61      0.61      0.60     13569
+weighted avg       0.61      0.61      0.60     13569
+
+
+Training Random Forest (on Embeddings)...
+Random Forest Accuracy: 0.7060
+              precision    recall  f1-score   support
+
+           0       0.70      0.72      0.71      6763
+           1       0.71      0.69      0.70      6806
+
+    accuracy                           0.71     13569
+   macro avg       0.71      0.71      0.71     13569
+weighted avg       0.71      0.71      0.71     13569
+
+
+Training Gradient Boosting (on Embeddings)...
+Gradient Boosting Accuracy: 0.7213
+              precision    recall  f1-score   support
+
+           0       0.71      0.75      0.73      6763
+           1       0.73      0.70      0.72      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.72      0.72      0.72     13569
+weighted avg       0.72      0.72      0.72     13569
+
+
+Training AdaBoost (on Embeddings)...
+AdaBoost Accuracy: 0.7159
+              precision    recall  f1-score   support
+
+           0       0.70      0.76      0.73      6763
+           1       0.74      0.67      0.70      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.72      0.72      0.72     13569
+weighted avg       0.72      0.72      0.72     13569
+
+
+Training Voting Classifier (on Embeddings)...
+Voting Classifier Accuracy: 0.7250
+              precision    recall  f1-score   support
+
+           0       0.71      0.77      0.73      6763
+           1       0.75      0.69      0.71      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.73      0.73      0.72     13569
+weighted avg       0.73      0.72      0.72     13569
+

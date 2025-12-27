@@ -1,0 +1,235 @@
+Loading data from f:/venv/cvd_analysis/cardio_train.csv...
+Initial shape: (70000, 13)
+Removing 24 duplicate rows...
+Rows after blood pressure cleaning: 68651 (removed 1325)
+Final shape after preprocessing: (68613, 13)
+
+--- Analysis: Effect of Smoking on CVD ---
+
+CVD Prevalence:
+Non-Smokers (0): 49.73%
+Smokers (1):     46.84%
+
+Unadjusted Odds Ratio (Smoker vs Non-Smoker):
+OR: 0.8907
+Interpretation: Smokers have lower/equal odds of CVD compared to non-smokers (unexpected, likely due to age confounding).
+
+--- Model Training & Evaluation ---
+
+============================================================
+TRADITIONAL MODELS
+============================================================
+
+Training Logistic Regression...
+Logistic Regression Accuracy: 0.7297
+              precision    recall  f1-score   support
+
+           0       0.71      0.78      0.75      6969
+           1       0.75      0.68      0.71      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+Logistic Regression Coefficients (Feature Importance):
+        Feature  Coefficient
+4         ap_hi     0.943482
+0     age_years     0.338224
+6   cholesterol     0.337799
+3        weight     0.160350
+5         ap_lo     0.099825
+1        gender    -0.004795
+2        height    -0.032796
+8         smoke    -0.040029
+9          alco    -0.051498
+7          gluc    -0.067612
+10       active    -0.091459
+
+Logistic Regression Coefficient for 'smoke': -0.0400
+Adjusted Odds Ratio for 'smoke': 0.9608
+
+Training K-Nearest Neighbors...
+K-Nearest Neighbors Accuracy: 0.6959
+              precision    recall  f1-score   support
+
+           0       0.70      0.71      0.70      6969
+           1       0.69      0.69      0.69      6754
+
+    accuracy                           0.70     13723
+   macro avg       0.70      0.70      0.70     13723
+weighted avg       0.70      0.70      0.70     13723
+
+
+Training SVM...
+SVM Accuracy: 0.7297
+              precision    recall  f1-score   support
+
+           0       0.71      0.79      0.75      6969
+           1       0.75      0.67      0.71      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Training Decision Tree...
+Decision Tree Accuracy: 0.7319
+              precision    recall  f1-score   support
+
+           0       0.72      0.78      0.75      6969
+           1       0.75      0.68      0.71      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Decision Tree Rules (Top 5 levels):
+|--- ap_hi <= 0.17
+|   |--- age_years <= 0.26
+|   |   |--- cholesterol <= 1.67
+|   |   |   |--- age_years <= -1.13
+|   |   |   |   |--- cholesterol <= 0.20
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- cholesterol >  0.20
+|   |   |   |   |   |--- class: 0
+|   |   |   |--- age_years >  -1.13
+|   |   |   |   |--- ap_hi <= -0.43
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- ap_hi >  -0.43
+|   |   |   |   |   |--- class: 0
+|   |   |--- cholesterol >  1.67
+|   |   |   |--- gluc <= 2.23
+|   |   |   |   |--- age_years <= -1.74
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- age_years >  -1.74
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- gluc >  2.23
+
+Training Naive Bayes...
+Naive Bayes Accuracy: 0.7104
+              precision    recall  f1-score   support
+
+           0       0.68      0.81      0.74      6969
+           1       0.76      0.61      0.67      6754
+
+    accuracy                           0.71     13723
+   macro avg       0.72      0.71      0.71     13723
+weighted avg       0.72      0.71      0.71     13723
+
+
+Training Random Forest...
+Random Forest Accuracy: 0.7098
+              precision    recall  f1-score   support
+
+           0       0.71      0.72      0.72      6969
+           1       0.71      0.70      0.70      6754
+
+    accuracy                           0.71     13723
+   macro avg       0.71      0.71      0.71     13723
+weighted avg       0.71      0.71      0.71     13723
+
+
+Training Gradient Boosting...
+Gradient Boosting Accuracy: 0.7353
+              precision    recall  f1-score   support
+
+           0       0.73      0.77      0.75      6969
+           1       0.75      0.70      0.72      6754
+
+    accuracy                           0.74     13723
+   macro avg       0.74      0.73      0.73     13723
+weighted avg       0.74      0.74      0.74     13723
+
+
+Training AdaBoost...
+AdaBoost Accuracy: 0.7294
+              precision    recall  f1-score   support
+
+           0       0.71      0.80      0.75      6969
+           1       0.76      0.66      0.70      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+============================================================
+ENSEMBLE MODELS
+============================================================
+
+Training Voting Classifier...
+Voting Classifier Accuracy: 0.7336
+              precision    recall  f1-score   support
+
+           0       0.72      0.77      0.75      6969
+           1       0.75      0.70      0.72      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Training Stacking Classifier...
+Stacking Classifier Accuracy: 0.7348
+              precision    recall  f1-score   support
+
+           0       0.73      0.76      0.75      6969
+           1       0.74      0.70      0.72      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.74      0.73      0.73     13723
+weighted avg       0.74      0.73      0.73     13723
+
+
+Training Bagging Classifier...
+Bagging Classifier Accuracy: 0.7337
+              precision    recall  f1-score   support
+
+           0       0.72      0.77      0.75      6969
+           1       0.74      0.70      0.72      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Training Extra Trees...
+Extra Trees Accuracy: 0.7377
+              precision    recall  f1-score   support
+
+           0       0.72      0.78      0.75      6969
+           1       0.76      0.69      0.72      6754
+
+    accuracy                           0.74     13723
+   macro avg       0.74      0.74      0.74     13723
+weighted avg       0.74      0.74      0.74     13723
+
+
+============================================================
+COMPARISON: TRADITIONAL vs ENSEMBLE
+============================================================
+
+--- All Models Ranked by Accuracy ---
+              Model  Accuracy        Type
+        Extra Trees  0.737667    Ensemble
+  Gradient Boosting  0.735335 Traditional
+Stacking Classifier  0.734752    Ensemble
+ Bagging Classifier  0.733732    Ensemble
+  Voting Classifier  0.733586    Ensemble
+      Decision Tree  0.731910 Traditional
+                SVM  0.729724 Traditional
+Logistic Regression  0.729651 Traditional
+           AdaBoost  0.729359 Traditional
+        Naive Bayes  0.710413 Traditional
+      Random Forest  0.709830 Traditional
+K-Nearest Neighbors  0.695912 Traditional
+
+--- Average Accuracy ---
+Traditional Models: 0.7215
+Ensemble Models:    0.7349
+Difference:         1.34% (Ensemble better)
+
+--- Best Models ---
+Best Traditional: Gradient Boosting (0.7353)
+Best Ensemble:    Extra Trees (0.7377)

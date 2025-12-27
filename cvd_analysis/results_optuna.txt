@@ -1,0 +1,173 @@
+Loading data from f:/venv/cvd_analysis/cardio_train.csv...
+Initial shape: (70000, 13)
+Dropped original 'age' column.
+Removing 674 duplicate rows...
+Rows after BP cleaning: 68001
+Rows after height/weight cleaning: 67844
+Added bmi, pulse_pressure, map features.
+Final shape: (67844, 15)
+
+--- Model Training with Optuna Optimization ---
+Using 14 features
+
+Training Autoencoder...
+Using device: cuda
+Epoch 1/20, Loss: 0.6272
+Epoch 2/20, Loss: 0.2272
+Epoch 3/20, Loss: 0.1633
+Epoch 4/20, Loss: 0.1458
+Epoch 5/20, Loss: 0.1216
+Epoch 6/20, Loss: 0.0859
+Epoch 7/20, Loss: 0.0634
+Epoch 8/20, Loss: 0.0501
+Epoch 9/20, Loss: 0.0400
+Epoch 10/20, Loss: 0.0345
+Epoch 11/20, Loss: 0.0311
+Epoch 12/20, Loss: 0.0290
+Epoch 13/20, Loss: 0.0274
+Epoch 14/20, Loss: 0.0257
+Epoch 15/20, Loss: 0.0246
+Epoch 16/20, Loss: 0.0242
+Epoch 17/20, Loss: 0.0230
+Epoch 18/20, Loss: 0.0211
+Epoch 19/20, Loss: 0.0205
+Epoch 20/20, Loss: 0.0198
+Encoded shape: (67844, 10)
+
+--- Optuna Hyperparameter Optimization ---
+
+Optimizing Random Forest...
+Best RF params: {'n_estimators': 160, 'max_depth': 12, 'min_samples_split': 5}, Score: 0.7234
+
+Optimizing Gradient Boosting...
+Best GB params: {'n_estimators': 175, 'max_depth': 4, 'learning_rate': 0.06272924049005918}, Score: 0.7254
+
+Optimizing KNN...
+Best KNN params: {'n_neighbors': 15, 'weights': 'uniform'}, Score: 0.7126
+
+--- Training Models with Optimized Hyperparameters ---
+
+Training Logistic Regression...
+Logistic Regression Accuracy: 0.7209
+              precision    recall  f1-score   support
+
+           0       0.70      0.78      0.74      6763
+           1       0.75      0.66      0.70      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.72      0.72      0.72     13569
+weighted avg       0.72      0.72      0.72     13569
+
+
+Training KNN (Optimized)...
+KNN (Optimized) Accuracy: 0.7210
+              precision    recall  f1-score   support
+
+           0       0.71      0.75      0.73      6763
+           1       0.73      0.69      0.71      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.72      0.72      0.72     13569
+weighted avg       0.72      0.72      0.72     13569
+
+
+Training SVM...
+SVM Accuracy: 0.7193
+              precision    recall  f1-score   support
+
+           0       0.69      0.79      0.74      6763
+           1       0.75      0.65      0.70      6806
+
+    accuracy                           0.72     13569
+   macro avg       0.72      0.72      0.72     13569
+weighted avg       0.72      0.72      0.72     13569
+
+
+Training Decision Tree...
+Decision Tree Accuracy: 0.6864
+              precision    recall  f1-score   support
+
+           0       0.67      0.72      0.69      6763
+           1       0.70      0.66      0.68      6806
+
+    accuracy                           0.69     13569
+   macro avg       0.69      0.69      0.69     13569
+weighted avg       0.69      0.69      0.69     13569
+
+
+Training Naive Bayes...
+Naive Bayes Accuracy: 0.5943
+              precision    recall  f1-score   support
+
+           0       0.57      0.77      0.66      6763
+           1       0.65      0.42      0.51      6806
+
+    accuracy                           0.59     13569
+   macro avg       0.61      0.59      0.58     13569
+weighted avg       0.61      0.59      0.58     13569
+
+
+Training Random Forest (Optimized)...
+Random Forest (Optimized) Accuracy: 0.7285
+              precision    recall  f1-score   support
+
+           0       0.71      0.76      0.74      6763
+           1       0.75      0.69      0.72      6806
+
+    accuracy                           0.73     13569
+   macro avg       0.73      0.73      0.73     13569
+weighted avg       0.73      0.73      0.73     13569
+
+
+Training Gradient Boosting (Optimized)...
+Gradient Boosting (Optimized) Accuracy: 0.7270
+              precision    recall  f1-score   support
+
+           0       0.71      0.76      0.73      6763
+           1       0.74      0.70      0.72      6806
+
+    accuracy                           0.73     13569
+   macro avg       0.73      0.73      0.73     13569
+weighted avg       0.73      0.73      0.73     13569
+
+
+Training AdaBoost...
+AdaBoost Accuracy: 0.7084
+              precision    recall  f1-score   support
+
+           0       0.69      0.75      0.72      6763
+           1       0.73      0.67      0.70      6806
+
+    accuracy                           0.71     13569
+   macro avg       0.71      0.71      0.71     13569
+weighted avg       0.71      0.71      0.71     13569
+
+
+Training Voting Classifier...
+Voting Classifier Accuracy: 0.7283
+              precision    recall  f1-score   support
+
+           0       0.71      0.77      0.74      6763
+           1       0.75      0.69      0.72      6806
+
+    accuracy                           0.73     13569
+   macro avg       0.73      0.73      0.73     13569
+weighted avg       0.73      0.73      0.73     13569
+
+
+Training Stacking Classifier...
+Stacking Classifier Accuracy: 0.7279
+              precision    recall  f1-score   support
+
+           0       0.71      0.76      0.74      6763
+           1       0.75      0.70      0.72      6806
+
+    accuracy                           0.73     13569
+   macro avg       0.73      0.73      0.73     13569
+weighted avg       0.73      0.73      0.73     13569
+
+
+--- Best Hyperparameters Summary ---
+Random Forest: {'n_estimators': 160, 'max_depth': 12, 'min_samples_split': 5}
+Gradient Boosting: {'n_estimators': 175, 'max_depth': 4, 'learning_rate': 0.06272924049005918}
+KNN: {'n_neighbors': 15, 'weights': 'uniform'}

@@ -68,6 +68,52 @@ SVM Accuracy: 0.7297
 weighted avg       0.73      0.73      0.73     13723
 
 
+Training Decision Tree...
+Decision Tree Accuracy: 0.7319
+              precision    recall  f1-score   support
+
+           0       0.72      0.78      0.75      6969
+           1       0.75      0.68      0.71      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Decision Tree Rules (Top 5 levels):
+|--- ap_hi <= 0.17
+|   |--- age_years <= 0.26
+|   |   |--- cholesterol <= 1.67
+|   |   |   |--- age_years <= -1.13
+|   |   |   |   |--- cholesterol <= 0.20
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- cholesterol >  0.20
+|   |   |   |   |   |--- class: 0
+|   |   |   |--- age_years >  -1.13
+|   |   |   |   |--- ap_hi <= -0.43
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- ap_hi >  -0.43
+|   |   |   |   |   |--- class: 0
+|   |   |--- cholesterol >  1.67
+|   |   |   |--- gluc <= 2.23
+|   |   |   |   |--- age_years <= -1.74
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- age_years >  -1.74
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- gluc >  2.23
+
+Training Naive Bayes...
+Naive Bayes Accuracy: 0.7104
+              precision    recall  f1-score   support
+
+           0       0.68      0.81      0.74      6969
+           1       0.76      0.61      0.67      6754
+
+    accuracy                           0.71     13723
+   macro avg       0.72      0.71      0.71     13723
+weighted avg       0.72      0.71      0.71     13723
+
+
 Training Random Forest...
 Random Forest Accuracy: 0.7098
               precision    recall  f1-score   support
@@ -78,4 +124,40 @@ Random Forest Accuracy: 0.7098
     accuracy                           0.71     13723
    macro avg       0.71      0.71      0.71     13723
 weighted avg       0.71      0.71      0.71     13723
+
+
+Training Gradient Boosting...
+Gradient Boosting Accuracy: 0.7353
+              precision    recall  f1-score   support
+
+           0       0.73      0.77      0.75      6969
+           1       0.75      0.70      0.72      6754
+
+    accuracy                           0.74     13723
+   macro avg       0.74      0.73      0.73     13723
+weighted avg       0.74      0.74      0.74     13723
+
+
+Training AdaBoost...
+AdaBoost Accuracy: 0.7294
+              precision    recall  f1-score   support
+
+           0       0.71      0.80      0.75      6969
+           1       0.76      0.66      0.70      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
+
+
+Training Voting Classifier...
+Voting Classifier Accuracy: 0.7336
+              precision    recall  f1-score   support
+
+           0       0.72      0.77      0.75      6969
+           1       0.75      0.70      0.72      6754
+
+    accuracy                           0.73     13723
+   macro avg       0.73      0.73      0.73     13723
+weighted avg       0.73      0.73      0.73     13723
 

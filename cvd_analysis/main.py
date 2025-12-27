@@ -7,7 +7,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier, VotingClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
@@ -75,13 +77,36 @@ def train_and_evaluate(df):
     
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
     
+    # Initialize individual models
+    lr = LogisticRegression(max_iter=1000)
+    knn = KNeighborsClassifier(n_neighbors=5)
+    svm = LinearSVC(random_state=42, dual=False)
+    rf = RandomForestClassifier(n_estimators=100, random_state=42)
+    dt = DecisionTreeClassifier(max_depth=5, random_state=42)
+    nb = GaussianNB()
+    gb = GradientBoostingClassifier(n_estimators=100, random_state=42)
+    ada = AdaBoostClassifier(n_estimators=100, random_state=42)
+    
+    # Create a Voting Classifier (Ensemble)
+    voting_clf = VotingClassifier(
+        estimators=[('lr', lr), ('rf', rf), ('gb', gb)],
+        voting='hard'
+    )
+
     models = {
-        "Logistic Regression": LogisticRegression(max_iter=1000),
-        "K-Nearest Neighbors": KNeighborsClassifier(n_neighbors=5),
-        "SVM": LinearSVC(random_state=42, dual=False),
-        "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42)
+        "Logistic Regression": lr,
+        "K-Nearest Neighbors": knn,
+        "SVM": svm,
+        "Decision Tree": dt,
+        "Naive Bayes": nb,
+        "Random Forest": rf,
+        "Gradient Boosting": gb,
+        "AdaBoost": ada,
+        "Voting Classifier": voting_clf
     }
     
+    model_performance = []
+
     for name, model in models.items():
         print(f"\nTraining {name}...")
         model.fit(X_train, y_train)
@@ -90,6 +115,8 @@ def train_and_evaluate(df):
         print(f"{name} Accuracy: {acc:.4f}")
         print(classification_report(y_test, preds))
         
+        model_performance.append({'Model': name, 'Accuracy': acc})
+
         if name == "Logistic Regression":
             print("Logistic Regression Coefficients (Feature Importance):")
             coeffs = pd.DataFrame({
@@ -121,6 +148,27 @@ def train_and_evaluate(df):
             plt.tight_layout()
             plt.savefig(f'f:/venv/cvd_analysis/plots/confusion_matrix_{name.replace(" ", "_")}.png')
             plt.close()
+
+        if name == "Decision Tree":
+            # Export text representation of the tree rules
+            tree_rules = export_text(model, feature_names=features)
+            print("\nDecision Tree Rules (Top 5 levels):")
+            print("\n".join(tree_rules.splitlines()[:20])) # Print first 20 lines
+            with open("f:/venv/cvd_analysis/plots/decision_tree_rules.txt", "w") as f:
+                f.write(tree_rules)
+
+    # Generate Model Comparison Plot
+    perf_df = pd.DataFrame(model_performance).sort_values(by='Accuracy', ascending=False)
+    
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='Accuracy', y='Model', data=perf_df, palette='viridis')
+    plt.title('Model Accuracy Comparison')
+    plt.xlabel('Accuracy Score')
+    plt.xlim(0.6, 0.8) # Zoom in for better differentiation on this dataset
+    plt.tight_layout()
+    plt.savefig('f:/venv/cvd_analysis/plots/model_comparison.png')
+    plt.close()
+
 
 def optimize_visuals(df):
     """
